@@ -1,5 +1,4 @@
 // const { FieldValue, Timestamp } = require("firebase-admin/firestore");
-const { response } = require("express");
 const { connectDb } = require("./connectDb");
 
 exports.createTask = (req, res) => {
@@ -31,11 +30,23 @@ exports.getTasks = (req, res) => {
 
 exports.updateTask = (req, res) => {
   const { taskId } = req.params;
-  const isDone = req.body.isDone;
+  const isDone = req.body.done;
   const db = connectDb();
   db.collection("tasks")
     .doc(taskId)
     .update({ done: isDone })
     .then((doc) => res.status(202).send(doc))
+    .catch((err) => res.status(500).send(err));
+};
+
+exports.deleteTask = (req, res) => {
+  const { taskId } = req.params;
+  const db = connectDb();
+  db.collection("tasks")
+    .doc(taskId)
+    .delete()
+    .then(() => {
+      res.send("Deleted task");
+    })
     .catch((err) => res.status(500).send(err));
 };
