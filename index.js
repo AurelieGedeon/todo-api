@@ -3,7 +3,7 @@ const cors = require("cors"); //imports cors
 
 const { getTasks, createTask, updateTask, deleteTask } = require("./src/tasks");
 
-const PORT = process.env.PORT || 3009;
+const PORT = process.env.PORT || 3008;
 
 const app = express();
 app.use(cors());

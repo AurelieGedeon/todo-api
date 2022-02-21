@@ -5,6 +5,7 @@ exports.createTask = (req, res) => {
   const newTask = {
     task: req.body.task,
     done: false,
+    deleted: false,
   };
   const db = connectDb();
   db.collection("tasks")
@@ -16,6 +17,7 @@ exports.createTask = (req, res) => {
 exports.getTasks = (req, res) => {
   const db = connectDb();
   db.collection("tasks")
+    .where("deleted", "==", false)
     .get()
     .then((snapshot) => {
       const taskList = snapshot.docs.map((doc) => {
