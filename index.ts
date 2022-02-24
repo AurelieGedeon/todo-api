@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors'
-const cors = require("cors"); //imports cors
+
 
 import {getTasks, createTask, updateTask, deleteTask} from './src/tasks'
 
